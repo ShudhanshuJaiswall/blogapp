@@ -2,7 +2,7 @@ from django.shortcuts import render
 
 # Create your views here.
 from	django.shortcuts	import	render,	get_object_or_404
-from phonenumbers import region_code_for_country_code
+# from phonenumbers import region_code_for_country_code
 from	.models	import	Post,Comment
 from	.forms	import	EmailPostForm,	CommentForm
 from	django.core.paginator	import	Paginator,	EmptyPage,PageNotAnInteger
