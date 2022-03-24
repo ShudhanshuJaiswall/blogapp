@@ -1,0 +1,52 @@
+{% extends "blog/base.html"	%}
+                {%	block	title	%}{{	post.title	}}{%	endblock	%}
+                {%	block	content	%}
+                <div class="container">
+                  <div class="row">
+                   <div class="col-md-8 card mb-4  mt-3 left  top">
+                    <div class="card-body">
+                        <h1>{{	post.title	}}</h1>
+                        <p	class="date">
+                        Published	{{	post.publish	}}	by	{{	post.author	}}
+                        </p>
+                                      <p class=" text-muted">{{	post.body|linebreaks	}}</p>
+                                      <p class="card-text "></p>
+                        <p>
+                                <a      class="btn btn-primary"	href="{%	url	"blog:post_share"	post.id	%}">
+                                        Share	this	post
+                                </a>
+                        </p>
+
+                        {%	with	comments.count	as	total_comments	%}
+                                        <h2>
+                                                        {{	total_comments	}}	comment{{	total_comments|pluralize	}}
+                                        </h2>
+                        {%	endwith	%}
+                        {%	for	comment	in	comments	%}
+                        <div	class="comment">
+                                <p	class="info">
+                                        Comment	{{	forloop.counter	}}	by	{{	comment.name	}}
+                                        {{	comment.created	}}
+                                </p>
+                                {{	comment.body|linebreaks	}}
+                        </div>
+                        {%	empty	%}
+                        <p>There	are	no	comments	yet.</p>
+                        {%	endfor	%}
+                        {%	if	new_comment	%}
+                                <h2>Your	comment	has	been	added.</h2>
+                        {%	else	%}
+                        <h2>Add	a	new	comment</h2>
+                        <form class="farm"	action="."	method="post">
+                                {{	comment_form.as_p	}}
+                                {%	csrf_token	%}
+                                <p><input       class="btn btn-primary"	type="submit"	value="Add comment"></p>
+                        </form>
+                        {%	endif	%}
+                     </div>
+                    </div>
+                    {% block sidebar %} {% include 'blog/sidebar.html' %} {% endblock sidebar %}
+                  </div>
+                </div>
+
+{%	endblock	%}
